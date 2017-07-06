@@ -32,13 +32,6 @@ As usual, to create an empty `paket.dependencies` file, just run
 
 This step is absolutely the same as with traditional .NET projects.
 
-### Specifying dependencies to dotnet cli tools
-
-With Paket 5.5 comes a new keyword for the [`paket.dependencies` file](dependencies-file.html). The [`clitool` reference](nuget-dependencies.html#Special-case-dotnet-cli-tools) allows to use specialized NuGet packages as dotnet cli tools.
-
-
-This is only available for new .NET SDK projects.
-
 ### Installing dependencies
 
 Install all required packages with:
@@ -102,7 +95,27 @@ This step is absolutely the same as with traditional .NET projects.
 
 ### Creating packages
 
-If you want to create NuGet packages you can continue to use the [paket pack](paket-pack.html) command and [template files](template-files.html) or you use the new `dotnet pack` command that comes with the dotnet cli. `dotnet pack` will take project information from your MSBuild project and dependency information from the [`paket.references` file](references-files.html).
+If you want to create NuGet packages you can continue to use the [paket pack](paket-pack.html) command and [template files](template-files.html).
+
+Or you can use the new `Pack` support in the `.NET Sdk`, that will take project information from your MSBuild project and dependency information from the [`paket.references` file](references-files.html).
+
+- With dotnet cli you can now call:
+
+    ```sh
+    dotnet pack
+    ```
+
+- With MSBuild 15 (Developer Command Prompt for VS2017 or mono 5) you can now call:
+
+    ```sh
+    msbuild /t:Pack
+    ```
+
+As a note for `.NET Sdk`, all info for pack can be customized (for example `Author`) for automation as:
+
+- msbuild property in the project `<Author>Nigel Sheldon</Author>` or defined inside an imported files.
+- env var `Author=Nigel Sheldon`
+- command line arg, passing `/p:Author="Nigel Sheldon"`
 
 ### Converting from NuGet
 
