@@ -164,6 +164,15 @@ namespace Paket.Bootstrapper
                         downloadWatch.Stop();
 
                         ConsoleImpl.WriteTrace("Download took {0:0.##} second(s)", downloadWatch.Elapsed.TotalSeconds);
+
+                        ConsoleImpl.WriteTrace("Creating wrapper scripts ...");
+
+                        var wrapperWatch = Stopwatch.StartNew();
+                        var scriptWrapper = new ScriptWrapper(fileSystemProxy);
+                        scriptWrapper.CreateWrapper(dlArgs.Target);
+
+                        ConsoleImpl.WriteTrace("Wrapper scripts creation took {0:0.##} second(s)", wrapperWatch.Elapsed.TotalSeconds);
+
                         ConsoleImpl.WriteInfo("Done in {0:0.##} second(s).", executionWatch.Elapsed.TotalSeconds);
                     }
                     else

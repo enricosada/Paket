@@ -61,6 +61,8 @@
     <Compile Include="PaketDependencies.cs" />
     <Compile Include="PaketRunner.cs" />
     <Compile Include="Verbosity.cs" />
+    <Compile Include="OSHelper.cs" />
+    <Compile Include="ScriptWrapper.cs" />
     <Compile Include="WindowsProcessArguments.cs" />
     <Compile Include="DownloadStrategies\CacheDownloadStrategy.cs" />
     <Compile Include="HelperProxies\IWebRequestProxy.cs" />
