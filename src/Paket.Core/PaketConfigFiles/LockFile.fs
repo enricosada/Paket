@@ -131,6 +131,8 @@ module LockFileSerializer =
                         match package.Kind, settings.ToString().ToLower()  with
                         | ResolvedPackageKind.DotnetCliTool, "" -> "clitool: true"
                         | ResolvedPackageKind.DotnetCliTool, s -> s + ", clitool: true"
+                        | ResolvedPackageKind.RepoTool, "" -> "repotool: true"
+                        | ResolvedPackageKind.RepoTool, s -> s + ", repotool: true"
                         | ResolvedPackageKind.Package, s -> s
 
                       let s =
@@ -421,6 +423,10 @@ module LockFileParser =
                     ResolvedPackageKind.DotnetCliTool,optionsString.Replace(", clitool: true","")
                 elif optionsString.EndsWith "clitool: true" then
                     ResolvedPackageKind.DotnetCliTool,optionsString.Replace("clitool: true","")
+                elif optionsString.EndsWith ", repotool: true" then
+                    ResolvedPackageKind.RepoTool,optionsString.Replace(", repotool: true","")
+                elif optionsString.EndsWith "repotool: true" then
+                    ResolvedPackageKind.RepoTool,optionsString.Replace("repotool: true","")
                 else
                     ResolvedPackageKind.Package,optionsString
 
@@ -891,6 +897,7 @@ type LockFile (fileName:string, groups: Map<GroupName,LockFileGroup>) =
                 match package.Kind with
                 | ResolvedPackageKind.DotnetCliTool ->
                     cliTools := Set.add package !cliTools
+                | ResolvedPackageKind.RepoTool
                 | ResolvedPackageKind.Package ->
                     if usedPackageKeys.Contains k then
                         failwithf "Package %O is referenced more than once in %s within group %O." p.Name referencesFile.FileName groupName
