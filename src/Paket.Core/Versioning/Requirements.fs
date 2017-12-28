@@ -1166,6 +1166,7 @@ type PackageRequirement =
 and [<RequireQualifiedAccess>] PackageRequirementKind =
     | Package
     | DotnetCliTool
+    | RepoTool
 
 type AddFrameworkRestrictionWarnings =
     | UnknownPortableProfile of TargetProfile
