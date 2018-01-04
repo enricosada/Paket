@@ -43,6 +43,7 @@
     <Compile Include="$(PaketTestsSourcesDir)\LoadingScriptGenerationTests.fs" />
     <Compile Include="$(PaketTestsSourcesDir)\LocalOverrideSpecs.fs" />
     <Compile Include="$(PaketTestsSourcesDir)\SimplifierSpecs.fs" />
+    <Compile Include="$(PaketTestsSourcesDir)\RepoToolSpecs.fs" />
     <None Include="paket.references" />
   </ItemGroup>
 
