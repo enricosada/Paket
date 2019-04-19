@@ -1,0 +1,30 @@
+name: $(Rev:r)
+jobs:
+- job: Windows
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - script: build.cmd BuildPackage
+    displayName: build BuildPackage
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'VSTest'
+      testResultsFiles: 'tests_result/*.trx'
+    condition: succeededOrFailed()
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'NUnit'
+      testResultsFiles: 'tests_result/*.xml'
+    condition: succeededOrFailed()
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: 'bin'
+      artifactName: 'bin'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: 'bin_netcore'
+      artifactName: 'bin_netcore'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: 'temp\*.nupkg'
+      artifactName: 'nupkgs'
